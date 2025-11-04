@@ -1,0 +1,40 @@
+<%- include('../partials/header') %>
+
+<div class="admin-container container">
+    <div class="admin-header">
+        <h1 class="page-title">Manage Conservancy Pages</h1>
+        <a href="/admin/dashboard" class="btn btn-secondary">Back to Dashboard</a>
+    </div>
+    <p>From here you can edit the dedicated pages for each conservancy.</p>
+
+    <div class="admin-table-wrapper">
+        <table class="admin-table">
+            <thead>
+                <tr>
+                    <th>Conservancy Name</th>
+                    <th>Last Updated</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% if(conservancies && conservancies.length > 0) { %>
+                    <% conservancies.forEach(item => { %>
+                        <tr>
+                            <td><strong><%= item.name %></strong></td>
+                            <td><%= new Date(item.updatedAt).toLocaleString() %></td>
+                            <td>
+                                <a href="/admin/conservancies/edit/<%= item.id %>" class="btn-action edit">Edit Content</a>
+                            </td>
+                        </tr>
+                    <% }) %>
+                <% } else { %>
+                    <tr>
+                        <td colspan="3">No conservancy pages found. Run the seeder script.</td>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<%- include('../partials/footer') %>

@@ -1,0 +1,61 @@
+<%- include('../partials/header') %>
+
+<div class="admin-container container">
+    <div class="admin-header">
+        <% if (article && article.id) { %>
+            <h1 class="page-title">Edit Article: <%= article.title %></h1>
+        <% } else { %>
+            <h1 class="page-title">Add New Article</h1>
+        <% } %>
+        <a href="/admin/news" class="btn btn-secondary">Back to News List</a>
+    </div>
+
+    <form 
+        action="<%= (article && article.id) ? '/admin/news/edit/' + article.id : '/admin/news/add' %>" 
+        method="POST" 
+        enctype="multipart/form-data"
+        class="admin-form">
+
+        <div class="form-group">
+            <label for="title">Article Title</label>
+            <input type="text" id="title" name="title" value="<%= article.title || '' %>" required>
+        </div>
+
+        <div class="form-group">
+            <label for="content">Full Content (HTML is allowed)</label>
+            <textarea id="content" name="content" rows="15" required><%= article.content || '' %></textarea>
+        </div>
+        
+        <div class="form-group">
+            <label for="metaDescription">Meta Description (For SEO, ~155 characters)</label>
+            <input type="text" id="metaDescription" name="metaDescription" value="<%= article.metaDescription || '' %>" maxlength="160">
+        </div>
+
+        <div class="form-group">
+            <label for="category">Category</label>
+            <select id="category" name="category">
+                <option value="Community" <%= (article.category === 'Community') ? 'selected' : '' %>>Community</option>
+                <option value="Wildlife" <%= (article.category === 'Wildlife') ? 'selected' : '' %>>Wildlife</option>
+                <option value="Youth" <%= (article.category === 'Youth') ? 'selected' : '' %>>Youth</option>
+                <option value="Environment" <%= (article.category === 'Environment') ? 'selected' : '' %>>Environment</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="author">Author Name</label>
+            <input type="text" id="author" name="author" value="<%= article.author || 'KNC Staff' %>">
+        </div>
+
+        <div class="form-group">
+            <label for="featuredImage">Featured Image</label>
+            <input type="file" id="featuredImage" name="featuredImage" accept="image/*">
+            <% if (article.featuredImage) { %>
+                <p>Current Image: <img src="<%= article.featuredImage %>" width="100" alt="Featured Image"></p>
+            <% } %>
+        </div>
+
+        <button type="submit" class="btn btn-primary"><%= (article && article.id) ? 'Update Article' : 'Publish Article' %></button>
+    </form>
+</div>
+
+<%- include('../partials/footer') %>

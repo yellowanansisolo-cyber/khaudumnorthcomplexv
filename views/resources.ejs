@@ -1,0 +1,41 @@
+<%- include('partials/header') %>
+<%- include('partials/page-hero') %>
+
+<section class="container content-section">
+    <p class="lead text-center">Browse and download our official reports, brochures, policies, and other important documents.</p>
+
+    <!-- THE FIX IS HERE: Changed class from "resource-list" to "resources-grid-strict" -->
+    <div class="resources-grid-strict">
+        <% if(documents && documents.length > 0) { %>
+            <% documents.forEach(doc => { %>
+                <div class="card resource-card">
+                    <div class="card-body">
+                        <span class="resource-category"><%= doc.category %></span>
+                        <h3><%= doc.title %></h3>
+                        <p><%= doc.description %></p>
+                        <a href="<%= doc.filePath %>" class="btn btn-primary" download>Download</a>
+                    </div>
+                </div>
+            <% }) %>
+        <% } else { %>
+            <p class="text-center">No resources are available at this time. Please check back later.</p>
+        <% } %>
+    </div>
+</section>
+
+<%- include('partials/footer') %>
+
+<style>
+    /* These styles are no longer needed here as they will be handled globally */
+    .resource-card {
+        display: flex;
+        flex-direction: column;
+    }
+    .resource-category {
+        font-family: var(--font-heading);
+        font-weight: 600;
+        color: var(--accent-orange);
+        margin-bottom: 0.5rem;
+        display: inline-block;
+    }
+</style>

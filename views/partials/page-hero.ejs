@@ -1,0 +1,14 @@
+<% 
+// This logic is now more robust.
+// For the title: It will prioritize the specific page title passed from the controller (like an article name).
+// If that's not available, it will use the title from the pageMeta object.
+const heroTitle = title || (locals.pageMeta ? pageMeta.title : 'Khaudum North Complex');
+
+// For the image: It will prioritize a specific heroImage passed from the controller.
+// If not, it will use the image from the pageMeta object.
+const heroImage = locals.heroImage || (locals.pageMeta ? pageMeta.heroImage : '/images/default-hero.jpg');
+%>
+
+<section class="page-hero" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('<%= heroImage %>');">
+    <h1><%= heroTitle %></h1>
+</section>

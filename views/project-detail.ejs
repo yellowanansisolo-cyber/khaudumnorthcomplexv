@@ -1,0 +1,42 @@
+<%- include('partials/header') %>
+<%- include('partials/page-hero') %>
+<section class="container content-section project-detail-layout">
+    <div class="project-main-content">
+        <h1><%= project.name %></h1>
+        <img src="<%= project.coverImage %>" alt="<%= project.name %>" class="project-detail-image">
+        <h2>Project Description</h2>
+        <p><%- project.description %></p>
+
+        <h2>Purpose</h2>
+        <p><%= project.purpose %></p>
+        
+        <div class="share-buttons">
+            <h4>Share this project:</h4>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=<%= encodeURIComponent(fullUrl) %>" target="_blank" class="btn btn-primary">Facebook</a>
+            <a href="https://twitter.com/intent/tweet?url=<%= encodeURIComponent(fullUrl) %>&text=<%= encodeURIComponent(project.name) %>" target="_blank" class="btn btn-primary">Twitter</a>
+            <a href="https://api.whatsapp.com/send?text=<%= encodeURIComponent(project.name + ' ' + fullUrl) %>" target="_blank" class="btn btn-primary">WhatsApp</a>
+        </div>
+    </div>
+    <aside class="project-sidebar">
+        <h3>Project Details</h3>
+        <div class="sidebar-info">
+            <strong>Status:</strong>
+            <p><%= project.status %></p>
+        </div>
+         <div class="sidebar-info">
+            <strong>Key Goals:</strong>
+            <ul>
+                <% if(project.goals && project.goals.length > 0) { %>
+                    <% project.goals.forEach(goal => { %>
+                        <li><%= goal %></li>
+                    <% }) %>
+                <% } else { %>
+                    <li>Goal details coming soon.</li>
+                <% } %>
+            </ul>
+        </div>
+        <a href="/contact?subject=Inquiry about <%= project.name %>" class="btn btn-primary btn-block">Inquire About This Project</a>
+    </aside>
+</section>
+
+<%- include('partials/footer') %>

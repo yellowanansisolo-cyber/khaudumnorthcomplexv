@@ -1,0 +1,43 @@
+<%- include('../partials/header') %>
+
+<div class="admin-container container">
+    <div class="admin-header">
+        <h1 class="page-title">Manage Page Banners & SEO</h1>
+    </div>
+    <p>From here you can update the hero image, title, and SEO meta description for each main page of the website.</p>
+
+    <div class="admin-table-wrapper">
+        <table class="admin-table">
+            <thead>
+                <tr>
+                    <th>Page</th>
+                    <th>Hero Title</th>
+                    <th>Current Hero Image</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% if(pages && pages.length > 0) { %>
+                    <% pages.forEach(page => { %>
+                        <tr>
+                            <td><strong><%= page.pageIdentifier %></strong></td>
+                            <td><%= page.title %></td>
+                            <td>
+                                <img src="<%= page.heroImage %>" alt="Hero for <%= page.title %>" width="150" style="object-fit: cover; aspect-ratio: 16/9;">
+                            </td>
+                            <td>
+                                <a href="/admin/pages/edit/<%= page.id %>" class="btn-action edit">Edit</a>
+                            </td>
+                        </tr>
+                    <% }) %>
+                <% } else { %>
+                    <tr>
+                        <td colspan="4">No pages found. Run the seeder script.</td>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<%- include('../partials/footer') %>

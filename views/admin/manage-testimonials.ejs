@@ -1,0 +1,44 @@
+<%- include('../partials/header') %>
+
+<div class="admin-container container">
+    <div class="admin-header">
+        <h1 class="page-title">Manage Testimonials</h1>
+        <a href="/admin/testimonials/add" class="btn btn-primary">Add New Testimonial</a>
+    </div>
+
+    <div class="admin-table-wrapper">
+        <table class="admin-table">
+            <thead>
+                <tr>
+                    <th>Quote</th>
+                    <th>Author</th>
+                    <th>Active</th>
+                    <th>Order</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% if(testimonials && testimonials.length > 0) { %>
+                    <% testimonials.forEach(item => { %>
+                        <tr>
+                            <td>"<%= item.quote.substring(0, 50) %>..."</td>
+                            <td><%= item.authorName %></td>
+                            <td><%= item.isActive ? 'Yes' : 'No' %></td>
+                            <td><%= item.displayOrder %></td>
+                            <td>
+                                <a href="/admin/testimonials/edit/<%= item.id %>" class="btn-action edit">Edit</a>
+                                <a href="/admin/testimonials/delete/<%= item.id %>" class="btn-action delete" onclick="return confirm('Are you sure you want to permanently delete this testimonial?');">Delete</a>
+                            </td>
+                        </tr>
+                    <% }) %>
+                <% } else { %>
+                    <tr>
+                        <td colspan="5">No testimonials found. Click "Add New Testimonial" to create one.</td>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<%- include('../partials/footer') %>

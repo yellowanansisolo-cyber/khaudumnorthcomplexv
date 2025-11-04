@@ -1,0 +1,26 @@
+<%- include('partials/header') %>
+<%- include('partials/page-hero') %>
+<section class="container content-section">
+    <div class="news-article">
+        <h1><%= article.title %></h1>
+        <p class="news-meta">
+            Published on <%= new Date(article.createdAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) %>
+            by <%= article.author %> in <strong><%= article.category %></strong>
+        </p>
+        <% if(article.featuredImage) { %>
+            <img src="<%= article.featuredImage %>" alt="<%= article.title %>" class="article-image">
+        <% } %>
+        <div class="article-content">
+            <%- article.content %>
+        </div>
+        
+        <div class="share-buttons">
+            <h4>Share this story:</h4>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=<%= encodeURIComponent(fullUrl) %>" target="_blank" class="btn btn-primary">Facebook</a>
+            <a href="https://twitter.com/intent/tweet?url=<%= encodeURIComponent(fullUrl) %>&text=<%= encodeURIComponent(article.title) %>" target="_blank" class="btn btn-primary">Twitter</a>
+            <a href="https://api.whatsapp.com/send?text=<%= encodeURIComponent(article.title + ' ' + fullUrl) %>" target="_blank" class="btn btn-primary">WhatsApp</a>
+        </div>
+    </div>
+</section>
+
+<%- include('partials/footer') %>

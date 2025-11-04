@@ -1,0 +1,44 @@
+<%- include('../partials/header') %>
+
+<div class="admin-container container">
+    <div class="admin-header">
+        <h1 class="page-title"><%= (userToEdit && userToEdit.id) ? 'Edit User' : 'Add New User' %></h1>
+        <a href="/admin/users" class="btn btn-secondary">Back to Users</a>
+    </div>
+
+    <form 
+        action="<%= (userToEdit && userToEdit.id) ? '/admin/users/edit/' + userToEdit.id : '/admin/users/add' %>" 
+        method="POST" 
+        class="admin-form">
+
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" value="<%= userToEdit.username || '' %>" required>
+        </div>
+
+        <div class="form-group">
+            <label for="role">Role</label>
+            <select id="role" name="role" required>
+                <option value="Technical Manager" <%= (userToEdit.role === 'Technical Manager') ? 'selected' : '' %>>Technical Manager</option>
+                <option value="Manager" <%= (userToEdit.role === 'Manager') ? 'selected' : '' %>>Manager</option>
+                <option value="Bookkeeper" <%= (userToEdit.role === 'Bookkeeper') ? 'selected' : '' %>>Bookkeeper</option>
+                <option value="Chairperson" <%= (userToEdit.role === 'Chairperson') ? 'selected' : '' %>>Chairperson</option>
+            </select>
+        </div>
+
+        <hr style="margin: 2rem 0;">
+
+        <div class="form-group">
+            <% if (userToEdit && userToEdit.id) { %>
+                <label for="password">New Password (leave blank to keep current password)</label>
+            <% } else { %>
+                <label for="password">Password</label>
+            <% } %>
+            <input type="password" id="password" name="password" <%= (userToEdit && userToEdit.id) ? '' : 'required' %>>
+        </div>
+
+        <button type="submit" class="btn btn-primary"><%= (userToEdit && userToEdit.id) ? 'Update User' : 'Create User' %></button>
+    </form>
+</div>
+
+<%- include('../partials/footer') %>

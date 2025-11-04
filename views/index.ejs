@@ -1,0 +1,116 @@
+<%- include('partials/header') %>
+
+<section class="hero-section">
+    <div class="hero-content">
+        <h1 id="white">Guardians of the Wild</h1>
+        <p id="white">Empowering communities, protecting wildlife, and preserving the Khaudum North Complex for future generations.</p>
+        <div class="hero-cta">
+            <a href="/about" class="btn btn-primary">Learn More</a>
+            <a href="/donation" class="btn btn-secondary">Join Us</a>
+        </div>
+    </div>
+</section>
+
+<!-- About Start -->
+<div class="container-fluid overflow-hidden about py-5">
+    <div class="container py-5">
+        <div class="row g-5">
+            <div class="col-xl-6">
+                <div class="about-item">
+                    <div class="pb-5">
+                        <h2 class="display-5 text-capitalize"><%= homeContent.home_about_title || 'The Khaudum North Complex' %></h2>
+                        <p class="mb-0"><%- homeContent.home_about_main_p || 'A vital wildlife corridor and a testament to community-led conservation, comprising the George Mukoya and Muduva Nyangana Conservancies. We work to create a sustainable future where both people and nature thrive.' %></p>
+                    </div>
+                    <div class="row g-4">
+                        <div class="col-lg-6">
+                            <div class="about-item-inner border p-4">
+                                <div class="about-icon mb-4">
+                                    <i class="fas fa-eye fa-2x text-white"></i>
+                                </div>
+                                <h5 class="mb-3"><%= homeContent.home_vision_title || 'Our Vision' %></h5>
+                                <p class="mb-0"><%- homeContent.home_vision_p || 'A thriving, self-sufficient conservancy where communities and wildlife coexist in harmony.' %></p>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="about-item-inner border p-4">
+                                <div class="about-icon mb-4">
+                                    <i class="fas fa-bullseye fa-2x text-white"></i>
+                                </div>
+                                <h5 class="mb-3"><%= homeContent.home_mission_title || 'Our Mission' %></h5>
+                                <p class="mb-0"><%- homeContent.home_mission_p || 'To sustainably manage and conserve natural resources for the social and economic benefit of our communities.' %></p>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-item my-4"><%- homeContent.home_about_bordered_p || 'We are committed to a community-led approach, ensuring that conservation efforts directly benefit the people who call this land home, fostering a legacy for generations to come.' %></p>
+                    <div class="row g-4">
+                        <div class="col-lg-12">
+                             <a href="/about" class="btn btn-primary rounded py-3 px-5">More About Us</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6">
+                <div class="about-img">
+                    <div class="img-1">
+                        <img src="<%= homeContent.home_about_image_1 || '/images/about-img-1.jpg' %>" class="img-fluid rounded h-100 w-100" alt="Conservancy landscape">
+                    </div>
+                    <div class="img-2">
+                        <img src="<%= homeContent.home_about_image_2 || '/images/about-img-2.jpg' %>" class="img-fluid rounded w-100" alt="Local wildlife">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- About End -->
+
+
+<section class="container content-section">
+    <h2 class="section-title">Our Key Projects</h2>
+    <div class="home-projects-grid">
+        <% if(projects && projects.length > 0) { %>
+            <% projects.forEach(project => { %>
+                <div class="styled-project-item">
+                    <div class="styled-project-inner">
+                        <div class="styled-project-img">
+                            <img src="<%= project.coverImage %>" class="img-fluid" alt="<%= project.name %>">
+                        </div>
+                        <div class="styled-project-content">
+                            <h4><%= project.name %></h4>
+                            <div class="project-review mb-4">
+                                <div class="me-3"><i class="fas fa-check-circle text-primary"></i> <%= project.status %></div>
+                                <div class="project-stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                            <a href="/projects/<%= project.slug %>" class="btn btn-project-style">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            <% }) %>
+        <% } else { %>
+            <p class="text-center">Our project information is being updated. Please check back soon!</p>
+        <% } %>
+    </div>
+</section>
+
+<section class="testimonials-section">
+    <div class="container">
+        <h2 class="section-title">Voices from the Community</h2>
+        <% if(testimonials && testimonials.length > 0) { %>
+            <% let activeTestimonial = testimonials[0]; %>
+            <div class="testimonial">
+                <blockquote>"<%= activeTestimonial.quote %>"</blockquote>
+                <cite>- <%= activeTestimonial.authorName %>, <%= activeTestimonial.authorTitle %></cite>
+            </div>
+        <% } else { %>
+            <p class="text-center">Testimonials coming soon.</p>
+        <% } %>
+    </div>
+</section>
+
+<%- include('partials/footer') %>

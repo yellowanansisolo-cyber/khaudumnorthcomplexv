@@ -1,0 +1,63 @@
+<%- include('partials/header') %>
+<%- include('partials/page-hero') %>
+
+<section class="container content-section">
+    <p class="lead text-center">A collection of moments from the Khaudum North Complex, showcasing our wildlife, landscapes, and community engagement.</p>
+    
+    <!-- We will use the class "admin-gallery-grid" to reuse the style -->
+    <div class="admin-gallery-grid"> 
+        <% if(mediaItems && mediaItems.length > 0) { %>
+            <% mediaItems.forEach(item => { %>
+                <!-- We will use the class "admin-gallery-item" here -->
+                <div class="admin-gallery-item">
+                    <a href="<%= item.filePath %>" data-title="<%= item.title %>">
+                        <img src="<%= item.filePath %>" alt="<%= item.title %>">
+                        <div class="item-title"><%= item.title %></div>
+                    </a>
+                </div>
+            <% }) %>
+        <% } else { %>
+            <p class="text-center">There are currently no images in the gallery. Please check back soon!</p>
+        <% } %>
+    </div>
+</section>
+
+<%- include('partials/footer') %>
+
+<!-- CSS to match the Admin Gallery page -->
+<style>
+    .admin-gallery-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 1.5rem;
+        margin-top: 2rem;
+    }
+    .admin-gallery-item {
+        position: relative;
+        overflow: hidden;
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow);
+        transition: transform 0.3s ease;
+    }
+    .admin-gallery-item:hover {
+        transform: translateY(-5px);
+    }
+    .admin-gallery-item img {
+        width: 100%;
+        height: 150px; /* Consistent height */
+        object-fit: cover; /* Prevents distortion */
+        display: block;
+    }
+    .item-title {
+        font-family: var(--font-heading);
+        padding: 10px;
+        background: var(--white);
+        font-weight: 600;
+        font-size: 0.9rem;
+        color: var(--dark-text); /* Ensure text color is readable */
+    }
+    .admin-gallery-item a {
+        color: inherit; /* Make the link inherit the text color */
+        text-decoration: none;
+    }
+</style>

@@ -1,0 +1,46 @@
+<%- include('../partials/header') %>
+
+<div class="admin-container container">
+    <div class="admin-header">
+        <h1 class="page-title"><%= (testimonial.id) ? 'Edit Testimonial' : 'Add New Testimonial' %></h1>
+        <a href="/admin/testimonials" class="btn btn-secondary">Back to List</a>
+    </div>
+
+    <form 
+        action="<%= (testimonial.id) ? '/admin/testimonials/edit/' + testimonial.id : '/admin/testimonials/add' %>" 
+        method="POST" 
+        class="admin-form">
+
+        <div class="form-group">
+            <label for="quote">Quote</label>
+            <textarea id="quote" name="quote" rows="5" required><%= testimonial.quote || '' %></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="authorName">Author's Name</label>
+            <input type="text" id="authorName" name="authorName" value="<%= testimonial.authorName || '' %>" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="authorTitle">Author's Title (e.g., Community Member)</label>
+            <input type="text" id="authorTitle" name="authorTitle" value="<%= testimonial.authorTitle || '' %>" required>
+        </div>
+
+        <div class="form-group">
+            <label for="displayOrder">Display Order (Lowest number shows first)</label>
+            <input type="number" id="displayOrder" name="displayOrder" value="<%= testimonial.displayOrder || 0 %>" required>
+        </div>
+
+        <div class="form-group">
+            <label for="isActive">Status</label>
+            <select id="isActive" name="isActive">
+                <option value="true" <%= (testimonial.isActive) ? 'selected' : '' %>>Active (Visible on Homepage)</option>
+                <option value="false" <%= (!testimonial.isActive) ? 'selected' : '' %>>Inactive (Hidden)</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary"><%= (testimonial.id) ? 'Update Testimonial' : 'Create Testimonial' %></button>
+    </form>
+</div>
+
+<%- include('../partials/footer') %>

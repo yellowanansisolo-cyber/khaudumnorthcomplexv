@@ -1,0 +1,42 @@
+--- START OF FILE edit-natural-resource.ejs ---
+<%- include('../partials/header') %>
+
+<div class="admin-container container">
+    <div class="admin-header">
+        <% if (resource && resource.id) { %>
+            <h1 class="page-title">Edit Natural Resource: <%= resource.name %></h1>
+        <% } else { %>
+            <h1 class="page-title">Add New Natural Resource</h1>
+        <% } %>
+        <a href="/admin/natural-resources" class="btn btn-secondary">Back to Resources</a>
+    </div>
+
+    <form 
+        action="<%= (resource && resource.id) ? '/admin/natural-resources/edit/' + resource.id : '/admin/natural-resources/add' %>" 
+        method="POST" 
+        enctype="multipart/form-data"
+        class="admin-form">
+
+        <div class="form-group">
+            <label for="name">Resource Name (e.g., Timber, Honey)</label>
+            <input type="text" id="name" name="name" value="<%= resource.name || '' %>" required>
+        </div>
+
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea id="description" name="description" rows="8" required><%= resource.description || '' %></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="coverImage">Resource Image</label>
+            <input type="file" id="coverImage" name="coverImage" accept="image/*">
+            <% if (resource.coverImage) { %>
+                <p>Current Image: <img src="<%= resource.coverImage %>" width="100" alt="Cover"></p>
+            <% } %>
+        </div>
+
+        <button type="submit" class="btn btn-primary"><%= (resource && resource.id) ? 'Update Resource' : 'Create Resource' %></button>
+    </form>
+</div>
+
+<%- include('../partials/footer') %>

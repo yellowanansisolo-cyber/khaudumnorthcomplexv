@@ -1,0 +1,84 @@
+<%- include('partials/header') %>
+<%- include('partials/page-hero') %>
+
+<section class="container content-section text-center">
+    <h2>Our Story</h2>
+    <p class="lead">The Khaudum campsite was privatized and completely renovated in 2015. Khaudum Campsite offers 6 campsites under shade trees on a prehistoric dune. From the campsites you have a beautiful view of the Khaudum Omuramba. Each campsite has its own barbecue area and private toilet and shower cabins.</p>
+
+    <h2>Mission & Vision</h2>
+    <p class="lead">To sustainably manage and conserve the natural resources of the Khaudum North Complex for the social and economic benefit of our communities, envisioning a thriving, self-sufficient conservancy where people and wildlife coexist in harmony.</p>
+</section>
+
+<section class="container content-section">
+    <h2 class="section-title">Meet the Team</h2>
+    <div class="projects-grid">
+        <% if(teamMembers && teamMembers.length > 0) { %>
+            <% teamMembers.forEach(member => { %>
+                <div class="styled-project-item">
+                    <div class="styled-project-inner">
+                        <div class="styled-project-img">
+                            <img src="<%= member.photo %>" class="img-fluid team-member-photo-styled" alt="<%= member.name %>">
+                        </div>
+                        <div class="styled-project-content">
+                            <h4><%= member.name %></h4>
+                            <div class="project-review mb-4">
+                                <div><i class="fas fa-user-circle text-primary"></i> <%= member.title %></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <% }) %>
+        <% } else { %>
+            <p class="text-center">Team information is being updated.</p>
+        <% } %>
+    </div>
+</section>
+
+<section class="container content-section">
+    <h2 class="section-title">Our Partners</h2>
+    <div class="projects-grid">
+        <% if(partners && partners.length > 0) { %>
+            <% partners.forEach(partner => { %>
+                <div class="styled-project-item">
+                    <a href="<%= partner.websiteUrl || '#' %>" target="_blank" rel="noopener noreferrer" class="partner-link-wrapper">
+                        <div class="styled-project-inner partner-card-inner">
+                            <div class="styled-project-img">
+                                <img src="<%= partner.logo %>" class="partner-logo-styled" alt="<%= partner.name %>">
+                            </div>
+                            <div class="styled-project-content">
+                                <h4><%= partner.name %></h4>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            <% }) %>
+        <% } else { %>
+            <p class="text-center">We are proud to work with a variety of partners. A full list will be available soon.</p>
+        <% } %>
+    </div>
+</section>
+
+
+<%- include('partials/footer') %>
+<style>
+.team-photo {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+}
+.partner-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+}
+.partner-logo img {
+    max-height: 80px;
+    filter: grayscale(100%);
+    transition: filter 0.3s ease;
+}
+.partner-logo:hover img {
+    filter: grayscale(0%);
+}
+</style>

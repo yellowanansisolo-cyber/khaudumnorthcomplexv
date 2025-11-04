@@ -1,0 +1,39 @@
+<%- include('../partials/header') %>
+
+<div class="admin-container container">
+    <div class="admin-header">
+        <h1 class="page-title"><%= (partner && partner.id) ? 'Edit Partner' : 'Add New Partner' %></h1>
+        <a href="/admin/partners" class="btn btn-secondary">Back to Partners List</a>
+    </div>
+
+    <form 
+        action="<%= (partner && partner.id) ? '/admin/partners/edit/' + partner.id : '/admin/partners/add' %>" 
+        method="POST" 
+        enctype="multipart/form-data"
+        class="admin-form">
+
+        <div class="form-group">
+            <label for="name">Partner Name</label>
+            <input type="text" id="name" name="name" value="<%= partner.name || '' %>" required>
+        </div>
+        <div class="form-group">
+            <label for="websiteUrl">Website URL (e.g., https://example.com)</label>
+            <input type="url" id="websiteUrl" name="websiteUrl" value="<%= partner.websiteUrl || '' %>" placeholder="https://example.com">
+        </div>
+        <div class="form-group">
+            <label for="displayOrder">Display Order (e.g., 0, 1, 2...)</label>
+            <input type="number" id="displayOrder" name="displayOrder" value="<%= partner.displayOrder || 0 %>" required>
+        </div>
+        <div class="form-group">
+            <label for="logo">Partner Logo (Image file)</label>
+            <input type="file" id="logo" name="logo" accept="image/*" <%= (partner && partner.id) ? '' : 'required' %>>
+            <% if (partner.logo) { %>
+                <p style="margin-top: 1rem;"><strong>Current Logo:</strong></p>
+                <img src="<%= partner.logo %>" width="150" alt="Current Logo" style="background: #f0f0f0; padding: 10px; border-radius: var(--border-radius);">
+            <% } %>
+        </div>
+        <button type="submit" class="btn btn-primary"><%= (partner && partner.id) ? 'Update Partner' : 'Add Partner' %></button>
+    </form>
+</div>
+
+<%- include('../partials/footer') %>

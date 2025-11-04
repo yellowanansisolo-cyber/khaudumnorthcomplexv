@@ -1,0 +1,27 @@
+<%- include('partials/header') %>
+<%- include('partials/page-hero') %>
+
+<section class="container content-section">
+    <p class="lead text-center">Our conservancy is rich with natural resources that we manage sustainably for the benefit of our community and the preservation of our environment.</p>
+    
+    <!-- THE FIX IS HERE: Changed class from "card-grid" to "natural-resources-grid-strict" -->
+    <div class="natural-resources-grid-strict">
+        <% if(resources && resources.length > 0) { %>
+            <% resources.forEach(resource => { %>
+                <div class="card project-card"> <!-- Reusing project-card style for consistency -->
+                    <img src="<%= resource.coverImage %>" alt="<%= resource.name %>">
+                    <div class="card-body">
+                        <h3><%= resource.name %></h3>
+                        <p><%= resource.description.substring(0, 120) %>...</p>
+                        <!-- This link takes the user to the contact page with the subject pre-filled -->
+                        <a href="/contact?subject=Inquiry about <%= resource.name %>" class="btn btn-primary">Make an Inquiry</a>
+                    </div>
+                </div>
+            <% }) %>
+        <% } else { %>
+            <p class="text-center">Information about our natural resources is currently being updated.</p>
+        <% } %>
+    </div>
+</section>
+
+<%- include('partials/footer') %>

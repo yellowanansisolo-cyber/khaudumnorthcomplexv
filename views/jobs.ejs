@@ -1,0 +1,32 @@
+<%- include('partials/header') %>
+<%- include('partials/page-hero') %>
+
+<section class="container content-section">
+    <p class="lead text-center">Join our team and contribute to the conservation and development of the Khaudum North Complex. We are looking for passionate individuals to fill the following roles.</p>
+    
+    <div class="job-list">
+        <% if(jobs && jobs.length > 0) { %>
+            <% jobs.forEach(job => { %>
+                <div class="card resource-card"> <!-- Reusing resource-card style -->
+                    <div class="card-body">
+                        <span class="resource-category"><%= job.type %> | Closing Date: <%= new Date(job.closingDate).toLocaleDateString() %></span>
+                        <h3><%= job.title %></h3>
+                        <p><%= job.description.substring(0, 150) %>...</p>
+                        <a href="/jobs/<%= job.slug %>" class="btn btn-primary">View & Apply</a>
+                    </div>
+                </div>
+            <% }) %>
+        <% } else { %>
+            <p class="text-center">There are currently no open positions. Please check back later.</p>
+        <% } %>
+    </div>
+</section>
+
+<%- include('partials/footer') %>
+
+<style>
+    .job-list {
+        display: grid;
+        gap: 1.5rem;
+    }
+</style>

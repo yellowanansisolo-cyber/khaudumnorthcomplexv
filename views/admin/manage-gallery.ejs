@@ -1,0 +1,114 @@
+<%- include('../partials/header') %>
+
+<!-- ... (modal code remains the same) ... -->
+<div id="uploadModal" class="modal">
+    <div class="modal-content">
+        <span class="close-button">&times;</span>
+        <h2>Upload New Media</h2>
+        <form action="/admin/gallery/upload-image" method="POST" enctype="multipart/form-data" class="admin-form" style="margin-bottom: 2rem;">
+            <h4>Upload Image</h4>
+            <div class="form-group">
+                <label for="title-img">Media Title</label>
+                <input type="text" id="title-img" name="title" required>
+            </div>
+            <div class="form-group">
+                <label for="description-img">Description</label>
+                <input type="text" id="description-img" name="description">
+            </div>
+            <div class="form-group">
+                <label for="mediaFile-img">Select Image File</label>
+                <input type="file" id="mediaFile-img" name="mediaFile" accept="image/*" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Upload Image</button>
+        </form>
+        <hr>
+        <form action="/admin/gallery/upload-video" method="POST" enctype="multipart/form-data" class="admin-form" style="margin-top: 2rem;">
+            <h4>Upload Video</h4>
+             <div class="form-group">
+                <label for="title-vid">Media Title</label>
+                <input type="text" id="title-vid" name="title" required>
+            </div>
+            <div class="form-group">
+                <label for="description-vid">Description</label>
+                <input type="text" id="description-vid" name="description">
+            </div>
+            <div class="form-group">
+                <label for="mediaFile-vid">Select Video File</label>
+                <input type="file" id="mediaFile-vid" name="mediaFile" accept="video/*" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Upload Video</button>
+        </form>
+    </div>
+</div>
+
+
+<div class="admin-container container">
+    <div class="admin-header">
+        <h1 class="page-title">Manage Gallery</h1>
+        <button id="openModalBtn" class="btn btn-primary">Upload New Media</button>
+    </div>
+    
+    <div class="admin-gallery-grid">
+        <% if(mediaItems && mediaItems.length > 0) { %>
+            <% mediaItems.forEach(item => { %>
+                <div class="admin-gallery-item">
+                    <% if (item.fileType === 'video') { %>
+                        <video controls style="width:100%; height: 150px; object-fit: cover; display:block; background: #000;"><source src="<%= item.filePath %>"></video>
+                    <% } else { %>
+                        <img src="<%= item.filePath %>" alt="<%= item.title %>">
+                    <% } %>
+                    <div class="item-title"><%= item.title %></div>
+                    <div class="admin-gallery-actions">
+                        <!-- THE FIX IS HERE: Added Edit link -->
+                        <a href="/admin/gallery/edit/<%= item.id %>" class="btn-action-edit">Edit</a>
+                        <a href="/admin/gallery/delete/<%= item.id %>" class="btn-action-delete" onclick="return confirm('Are you sure you want to permanently delete this item?');">Delete</a>
+                    </div>
+                </div>
+            <% }) %>
+        <% } else { %>
+            <p>No media found in the gallery. Click "Upload New Media" to add some!</p>
+        <% } %>
+    </div>
+</div>
+
+<%- include('../partials/footer') %>
+
+<!-- ... (CSS and JavaScript for the modal remains the same) ... -->
+<style>
+    /* ... modal styles ... */
+    .admin-gallery-actions {
+        /* ... existing styles ... */
+        display: flex; /* Makes alignment easier */
+        gap: 10px; /* Adds space between buttons */
+    }
+    .admin-gallery-actions a {
+        color: white;
+        font-weight: bold;
+        font-size: 0.9rem;
+        text-decoration: none;
+    }
+     .btn-action-edit:hover {
+        color: #76c7c0;
+    }
+    .btn-action-delete:hover {
+        color: #f1959b;
+    }
+</style>
+<script>
+    // JavaScript to handle the modal
+    const modal = document.getElementById("uploadModal");
+    const btn = document.getElementById("openModalBtn");
+    const span = document.getElementsByClassName("close-button")[0];
+
+    btn.onclick = function() {
+        modal.style.display = "block";
+    }
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>

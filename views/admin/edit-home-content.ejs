@@ -1,0 +1,73 @@
+<%- include('../partials/header') %>
+
+<div class="admin-container container">
+    <div class="admin-header">
+        <h1 class="page-title">Manage Homepage Content</h1>
+        <a href="/admin/dashboard" class="btn btn-secondary">Back to Dashboard</a>
+    </div>
+
+    <form 
+        action="/admin/content/homepage" 
+        method="POST" 
+        enctype="multipart/form-data"
+        class="admin-form">
+
+        <h3 style="margin-top: 1rem;">Main "About" Section</h3>
+        <hr>
+
+        <div class="form-group">
+            <label for="home_about_title">Section Title</label>
+            <input type="text" id="home_about_title" name="home_about_title" value="<%= content.home_about_title || 'The Khaudum North Complex' %>" required>
+        </div>
+
+        <div class="form-group">
+            <label for="home_about_main_p">Main Paragraph</label>
+            <textarea id="home_about_main_p" name="home_about_main_p" rows="4" required><%= content.home_about_main_p || '' %></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="home_vision_title">Vision Card Title</label>
+            <input type="text" id="home_vision_title" name="home_vision_title" value="<%= content.home_vision_title || 'Our Vision' %>" required>
+        </div>
+        <div class="form-group">
+            <label for="home_vision_p">Vision Card Text</label>
+            <textarea id="home_vision_p" name="home_vision_p" rows="3" required><%= content.home_vision_p || '' %></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="home_mission_title">Mission Card Title</label>
+            <input type="text" id="home_mission_title" name="home_mission_title" value="<%= content.home_mission_title || 'Our Mission' %>" required>
+        </div>
+        <div class="form-group">
+            <label for="home_mission_p">Mission Card Text</label>
+            <textarea id="home_mission_p" name="home_mission_p" rows="3" required><%= content.home_mission_p || '' %></textarea>
+        </div>
+        
+        <div class="form-group">
+            <label for="home_about_bordered_p">Bordered Text Item</label>
+            <textarea id="home_about_bordered_p" name="home_about_bordered_p" rows="4" required><%= content.home_about_bordered_p || '' %></textarea>
+        </div>
+
+        <hr>
+        <h3 style="margin-top: 2rem;">Section Images</h3>
+        
+        <div class="form-group">
+            <label for="home_about_image_1">Large Background Image (Image 1)</label>
+            <input type="file" id="home_about_image_1" name="home_about_image_1" accept="image/*">
+            <p style="margin-top: 1rem;"><strong>Current Image:</strong></p>
+            <img src="<%= content.home_about_image_1 || '/images/about-img-1.jpg' %>" width="300" alt="Current Main About Image">
+        </div>
+
+        <div class="form-group">
+            <label for="home_about_image_2">Small Foreground Image (Image 2)</label>
+            <input type="file" id="home_about_image_2" name="home_about_image_2" accept="image/*">
+            <p style="margin-top: 1rem;"><strong>Current Image:</strong></p>
+            <img src="<%= content.home_about_image_2 || '/images/about-img-2.jpg' %>" width="300" alt="Current Secondary About Image">
+        </div>
+
+
+        <button type="submit" class="btn btn-primary" style="margin-top: 2rem;">Save Homepage Content</button>
+    </form>
+</div>
+
+<%- include('../partials/footer') %>

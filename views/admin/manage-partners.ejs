@@ -1,0 +1,44 @@
+<%- include('../partials/header') %>
+
+<div class="admin-container container">
+    <div class="admin-header">
+        <h1 class="page-title">Manage Partners</h1>
+        <a href="/admin/partners/add" class="btn btn-primary">Add New Partner</a>
+    </div>
+
+    <div class="admin-table-wrapper">
+        <table class="admin-table">
+            <thead>
+                <tr>
+                    <th>Logo</th>
+                    <th>Partner Name</th>
+                    <th>Website URL</th>
+                    <th>Order</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% if(partners && partners.length > 0) { %>
+                    <% partners.forEach(partner => { %>
+                        <tr>
+                            <td><img src="<%= partner.logo %>" alt="<%= partner.name %>" width="100" style="background: #f0f0f0; padding: 5px;"></td>
+                            <td><%= partner.name %></td>
+                            <td><a href="<%= partner.websiteUrl %>" target="_blank"><%= partner.websiteUrl %></a></td>
+                            <td><%= partner.displayOrder %></td>
+                            <td>
+                                <a href="/admin/partners/edit/<%= partner.id %>" class="btn-action edit">Edit</a>
+                                <a href="/admin/partners/delete/<%= partner.id %>" class="btn-action delete" onclick="return confirm('Are you sure you want to delete this partner? This cannot be undone.');">Delete</a>
+                            </td>
+                        </tr>
+                    <% }) %>
+                <% } else { %>
+                    <tr>
+                        <td colspan="5">No partners found. Click "Add New Partner" to add one.</td>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<%- include('../partials/footer') %>

@@ -1,0 +1,24 @@
+<%- include('partials/header') %>
+<%- include('partials/page-hero') %>
+
+<section class="container content-section">
+    <div class="news-grid-strict">
+    <% if(articles && articles.length > 0) { %>
+        <% articles.forEach(article => { %>
+            <div class="card news-card"> 
+                <img src="<%= article.featuredImage || '/images/default-news.jpg' %>" alt="<%= article.title %>">
+                <div class="card-body">
+                    <p class="news-meta"><%= new Date(article.createdAt).toLocaleDateString() %> | <%= article.category %></p>
+                    <h3><%= article.title %></h3>
+                    <p><%= article.content.substring(0, 150).replace(/<[^>]*>?/gm, '') %>...</p>
+                    <a href="/news/<%= article.slug %>" class="btn btn-primary">Read Full Story</a>
+                </div>
+            </div>
+        <% }) %>
+    <% } else { %>
+        <p>No news articles found. Please check back later for updates.</p>
+    <% } %>
+    </div>
+</section>
+
+<%- include('partials/footer') %>

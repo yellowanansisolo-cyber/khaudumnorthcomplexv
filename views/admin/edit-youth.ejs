@@ -1,0 +1,51 @@
+--- START OF FILE edit-youth.ejs ---
+<%- include('../partials/header') %>
+
+<div class="admin-container container">
+    <div class="admin-header">
+        <% if (initiative && initiative.id) { %>
+            <h1 class="page-title">Edit Youth Initiative: <%= initiative.title %></h1>
+        <% } else { %>
+            <h1 class="page-title">Add New Youth Initiative</h1>
+        <% } %>
+        <a href="/admin/youth" class="btn btn-secondary">Back to Initiatives</a>
+    </div>
+
+    <form 
+        action="<%= (initiative && initiative.id) ? '/admin/youth/edit/' + initiative.id : '/admin/youth/add' %>" 
+        method="POST" 
+        enctype="multipart/form-data"
+        class="admin-form">
+
+        <div class="form-group">
+            <label for="title">Initiative Title</label>
+            <input type="text" id="title" name="title" value="<%= initiative.title || '' %>" required>
+        </div>
+
+        <div class="form-group">
+            <label for="description">Full Description</label>
+            <textarea id="description" name="description" rows="10" required><%= initiative.description || '' %></textarea>
+        </div>
+        
+        <div class="form-group">
+            <label for="status">Status</label>
+            <select id="status" name="status">
+                <option value="Upcoming" <%= (initiative.status === 'Upcoming') ? 'selected' : '' %>>Upcoming</option>
+                <option value="Ongoing" <%= (initiative.status === 'Ongoing') ? 'selected' : '' %>>Ongoing</option>
+                <option value="Completed" <%= (initiative.status === 'Completed') ? 'selected' : '' %>>Completed</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="coverImage">Cover Image</label>
+            <input type="file" id="coverImage" name="coverImage" accept="image/*">
+            <% if (initiative.coverImage) { %>
+                <p>Current Image: <img src="<%= initiative.coverImage %>" width="100" alt="Cover"></p>
+            <% } %>
+        </div>
+
+        <button type="submit" class="btn btn-primary"><%= (initiative && initiative.id) ? 'Update Initiative' : 'Create Initiative' %></button>
+    </form>
+</div>
+
+<%- include('../partials/footer') %>

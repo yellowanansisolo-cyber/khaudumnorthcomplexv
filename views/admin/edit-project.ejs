@@ -1,0 +1,60 @@
+<%- include('../partials/header') %>
+
+<div class="admin-container container">
+    <div class="admin-header">
+        <% if (project && project.id) { %>
+            <h1 class="page-title">Edit Project: <%= project.name %></h1>
+        <% } else { %>
+            <h1 class="page-title">Add New Project</h1>
+        <% } %>
+        <a href="/admin/projects" class="btn btn-secondary">Back to Projects</a>
+    </div>
+
+    <form 
+        action="<%= (project && project.id) ? '/admin/projects/edit/' + project.id : '/admin/projects/add' %>" 
+        method="POST" 
+        enctype="multipart/form-data"
+        class="admin-form">
+
+        <div class="form-group">
+            <label for="name">Project Name</label>
+            <input type="text" id="name" name="name" value="<%= project.name || '' %>" required>
+        </div>
+
+        <div class="form-group">
+            <label for="description">Full Description</label>
+            <textarea id="description" name="description" rows="10" required><%= project.description || '' %></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="metaDescription">Meta Description (For SEO, ~155 characters)</label>
+            <input type="text" id="metaDescription" name="metaDescription" value="<%= project.metaDescription || '' %>" maxlength="160">
+        </div>
+
+        <div class="form-group">
+            <label for="purpose">Project Purpose (Short Summary)</label>
+            <input type="text" id="purpose" name="purpose" value="<%= project.purpose || '' %>">
+        </div>
+        
+        <div class="form-group">
+            <label for="status">Status</label>
+            <select id="status" name="status">
+                <option value="Planning" <%= (project.status === 'Planning') ? 'selected' : '' %>>Planning</option>
+                <option value="Ongoing" <%= (project.status === 'Ongoing') ? 'selected' : '' %>>Ongoing</option>
+                <option value="Completed" <%= (project.status === 'Completed') ? 'selected' : '' %>>Completed</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="coverImage">Cover Image</label>
+            <input type="file" id="coverImage" name="coverImage" accept="image/*">
+            <% if (project.coverImage) { %>
+                <p>Current Image: <img src="<%= project.coverImage %>" width="100" alt="Cover"></p>
+            <% } %>
+        </div>
+
+        <button type="submit" class="btn btn-primary"><%= (project && project.id) ? 'Update Project' : 'Create Project' %></button>
+    </form>
+</div>
+
+<%- include('../partials/footer') %>

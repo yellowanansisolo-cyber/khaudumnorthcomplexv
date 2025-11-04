@@ -1,0 +1,44 @@
+<%- include('partials/header') %>
+<%- include('partials/page-hero') %>
+<section class="container content-section">
+    <div class="job-detail">
+        <h1><%= job.title %></h1>
+        <p class="news-meta">
+            <strong>Type:</strong> <%= job.type %> | 
+            <strong>Closing Date:</strong> <%= new Date(job.closingDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) %>
+        </p>
+
+        <div class="job-description">
+            <%- job.description %>
+        </div>
+
+        <hr style="margin: 2rem 0;">
+
+        <h2>Apply Now</h2>
+        <% if (new Date(job.closingDate) < new Date()) { %>
+            <p class="error-message" style="background: #efefef; color: #333;">Applications for this position are now closed.</p>
+        <% } else { %>
+            <form action="/jobs/<%= job.slug %>" method="POST" enctype="multipart/form-data" class="application-form">
+                <div class="form-group">
+                    <label for="applicantName">Full Name</label>
+                    <input type="text" id="applicantName" name="applicantName" required>
+                </div>
+                <div class="form-group">
+                    <label for="applicantEmail">Email Address</label>
+                    <input type="email" id="applicantEmail" name="applicantEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="coverLetter">Cover Letter (Optional)</label>
+                    <textarea id="coverLetter" name="coverLetter" rows="6"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="cv">Upload CV (PDF, DOC, DOCX - Max 5MB)</label>
+                    <input type="file" id="cv" name="cv" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit Application</button>
+            </form>
+        <% } %>
+    </div>
+</section>
+
+<%- include('partials/footer') %>

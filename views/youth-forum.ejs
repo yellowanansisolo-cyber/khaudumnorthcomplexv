@@ -1,0 +1,28 @@
+<%- include('partials/header') %>
+<%- include('partials/page-hero') %>
+
+<section class="container content-section">
+    <p class="lead text-center">We are committed to empowering the youth of our community through dedicated projects, training, and opportunities for involvement.</p>
+    
+    <!-- THE FIX IS HERE: Changed class from "card-grid" to "youth-forum-grid-strict" -->
+    <div class="youth-forum-grid-strict">
+        <% if(initiatives && initiatives.length > 0) { %>
+            <% initiatives.forEach(initiative => { %>
+                <div class="card youth-initiative-card"> <!-- Reusing project-card style for consistency -->
+                    <img src="<%= initiative.coverImage %>" alt="<%= initiative.title %>">
+                    <div class="card-body">
+                        <h3><%= initiative.title %></h3>
+                        <p class="project-status">Status: <%= initiative.status %></p>
+                        <p><%= initiative.description.substring(0, 120) %>...</p>
+                        <!-- This link can later go to a detail page -->
+                        <a href="/contact?subject=Inquiry about <%= initiative.title %>" class="btn btn-primary">Get Involved</a>
+                    </div>
+                </div>
+            <% }) %>
+        <% } else { %>
+            <p class="text-center">Our youth initiatives are being updated. Please check back soon!</p>
+        <% } %>
+    </div>
+</section>
+
+<%- include('partials/footer') %>

@@ -1,0 +1,38 @@
+<%- include('../partials/header') %>
+
+<div class="admin-container container">
+    <div class="admin-header">
+        <h1 class="page-title">Edit Gallery Item</h1>
+        <a href="/admin/gallery" class="btn btn-secondary">Back to Gallery</a>
+    </div>
+
+    <form 
+        action="/admin/gallery/edit/<%= item.id %>" 
+        method="POST" 
+        class="admin-form">
+
+        <div class="form-group">
+            <label for="title">Media Title</label>
+            <input type="text" id="title" name="title" value="<%= item.title || '' %>" required>
+        </div>
+
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea id="description" name="description" rows="4"><%= item.description || '' %></textarea>
+        </div>
+
+        <div class="form-group">
+            <label>Current Media</label>
+            <% if (item.fileType === 'video') { %>
+                <video controls width="250"><source src="<%= item.filePath %>"></video>
+            <% } else { %>
+                <img src="<%= item.filePath %>" width="250" alt="Current Media">
+            <% } %>
+            <p><small>Note: To replace the file, please delete this item and upload a new one.</small></p>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Update Item</button>
+    </form>
+</div>
+
+<%- include('../partials/footer') %>

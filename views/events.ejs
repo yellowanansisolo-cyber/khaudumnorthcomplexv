@@ -1,0 +1,25 @@
+<%- include('partials/header') %>
+<%- include('partials/page-hero') %>
+
+<section class="container content-section">
+    <p class="lead text-center">Stay up to date with our community meetings, training sessions, conservation campaigns, and other events.</p>
+    
+    <div class="event-list">
+        <% if(events && events.length > 0) { %>
+            <% events.forEach(event => { %>
+                <div class="card resource-card">
+                    <div class="card-body">
+                        <span class="resource-category"><%= new Date(event.startDate).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) %></span>
+                        <h3><%= event.title %></h3>
+                        <p><strong>Location:</strong> <%= event.location %></p>
+                        <p><%= event.description %></p>
+                    </div>
+                </div>
+            <% }) %>
+        <% } else { %>
+            <p class="text-center">There are no upcoming events scheduled at this time.</p>
+        <% } %>
+    </div>
+</section>
+
+<%- include('partials/footer') %>

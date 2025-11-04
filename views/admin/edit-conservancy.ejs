@@ -1,0 +1,88 @@
+<%- include('../partials/header') %>
+
+<div class="admin-container container">
+    <div class="admin-header">
+        <h1 class="page-title">Edit: <%= conservancy.name %></h1>
+        <a href="/admin/conservancies" class="btn btn-secondary">Back to List</a>
+    </div>
+
+    <form 
+        action="/admin/conservancies/edit/<%= conservancy.id %>" 
+        method="POST" 
+        enctype="multipart/form-data"
+        class="admin-form">
+
+        <h3 style="margin-top: 1rem;">Main Content</h3>
+        <hr>
+
+        <div class="form-group">
+            <label for="mainContent">Main Description</label>
+            <textarea id="mainContent" name="mainContent" rows="10"><%= conservancy.mainContent || '' %></textarea>
+        </div>
+        <div class="form-group">
+            <label for="vision">Vision Statement</label>
+            <textarea id="vision" name="vision" rows="3"><%= conservancy.vision || '' %></textarea>
+        </div>
+        <div class="form-group">
+            <label for="mission">Mission Statement</label>
+            <textarea id="mission" name="mission" rows="3"><%= conservancy.mission || '' %></textarea>
+        </div>
+
+        <h3 style="margin-top: 2rem;">Key Achievements</h3>
+        <hr>
+        <div id="achievements-container">
+            <% conservancy.achievements.forEach(ach => { %>
+                <div class="form-group"><input type="text" name="achievements" value="<%= ach %>" class="form-control"></div>
+            <% }) %>
+        </div>
+        <button type="button" id="add-achievement" class="btn btn-secondary btn-sm">Add Achievement</button>
+
+        <h3 style="margin-top: 2rem;">Images</h3>
+        <hr>
+
+        <div class="form-group">
+            <label for="heroImage">Hero Image</label>
+            <input type="file" id="heroImage" name="heroImage" accept="image/*">
+            <% if (conservancy.heroImage) { %>
+                <p>Current: <img src="<%= conservancy.heroImage %>" width="200" alt="Hero Image"></p>
+            <% } %>
+        </div>
+
+        <div class="form-group">
+            <label for="galleryImages">Add Gallery Images (Can select multiple)</label>
+            <input type="file" id="galleryImages" name="galleryImages" accept="image/*" multiple>
+        </div>
+        
+        <h4>Current Gallery</h4>
+        <div class="admin-gallery-grid">
+            <% if (conservancy.gallery && conservancy.gallery.length > 0) { %>
+                <% conservancy.gallery.forEach(img => { %>
+                    <div class="admin-gallery-item">
+                        <img src="<%= img.url %>" alt="Gallery Image">
+                        <div class="admin-gallery-actions">
+                            <form action="/admin/conservancies/<%= conservancy.id %>/delete-image/<%= img.id %>" method="POST" onsubmit="return confirm('Are you sure you want to delete this image?');">
+                                <button type="submit" class="btn-action-delete" style="background:none; border:none; color:white; cursor:pointer;">Delete</button>
+                            </form>
+                        </div>
+                    </div>
+                <% }) %>
+            <% } else { %>
+                <p>No gallery images have been uploaded yet.</p>
+            <% } %>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="margin-top: 2rem;">Save All Changes</button>
+    </form>
+</div>
+
+<script>
+    document.getElementById('add-achievement').addEventListener('click', function() {
+        const container = document.getElementById('achievements-container');
+        const inputGroup = document.createElement('div');
+        inputGroup.className = 'form-group';
+        inputGroup.innerHTML = '<input type="text" name="achievements" class="form-control" placeholder="New achievement...">';
+        container.appendChild(inputGroup);
+    });
+</script>
+
+<%- include('../partials/footer') %>

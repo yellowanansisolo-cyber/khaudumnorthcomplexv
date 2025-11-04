@@ -1,0 +1,77 @@
+<%- include('../partials/header') %>
+
+<div class="admin-container container">
+    <div class="admin-header">
+        <h1 class="page-title">Admin Dashboard</h1>
+        <a href="/admin/logout" class="btn btn-secondary">Log Out</a>
+    </div>
+    
+    <p>Welcome, <strong><%= user.username %></strong>! Your role is <strong><%= user.role %></strong>.</p>
+    <p>From here, you can manage the website's content.</p>
+
+    <div class="dashboard-grid">
+        <% if (user.role === 'Technical Manager') { %>
+            <a href="/admin/content/homepage" class="dashboard-card">
+                <h3>Manage Homepage</h3>
+                <p>Edit the text sections on the main homepage.</p>
+            </a>
+            <a href="/admin/conservancies" class="dashboard-card">
+                <h3>Manage Conservancies</h3>
+                <p>Edit content for the GMC and MNC pages.</p>
+            </a>
+            <a href="/admin/pages" class="dashboard-card">
+                <h3>Manage Page Banners</h3>
+                <p>Update hero images and titles for each page.</p>
+            </a>
+            <a href="/admin/projects" class="dashboard-card">
+                <h3>Manage Projects</h3>
+                <p>Add, edit, or remove conservation projects.</p>
+            </a>
+             <a href="/admin/testimonials" class="dashboard-card">
+                <h3>Manage Testimonials</h3>
+                <p>Update the "Voices from the Community" section.</p>
+            </a>
+            <a href="/admin/team" class="dashboard-card">
+                <h3>Manage Team</h3>
+                <p>Add, edit, or remove team members.</p>
+            </a>
+            <a href="/admin/partners" class="dashboard-card">
+                <h3>Manage Partners</h3>
+                <p>Add, edit, or remove partner organizations.</p>
+            </a>
+            <a href="/admin/users" class="dashboard-card">
+                <h3>Manage Users</h3>
+                <p>Control admin access and roles.</p>
+            </a>
+            <a href="/admin/natural-resources" class="dashboard-card">
+                <h3>Natural Resources</h3>
+                <p>Manage timber, honey, and other resources.</p>
+            </a>
+        <% } %>
+
+        <% if (user.role === 'Manager' || user.role === 'Technical Manager' || user.role === 'Chairperson') { %>
+            <a href="/admin/news" class="dashboard-card">
+                <h3>Manage News</h3>
+                <p>Post updates and articles for the blog.</p>
+            </a>
+        <% } %>
+
+        <% if (user.role === 'Manager' || user.role === 'Technical Manager') { %>
+            <a href="/admin/youth" class="dashboard-card">
+                <h3>Youth Initiatives</h3>
+                <p>Add and update youth-focused programs.</p>
+            </a>
+            <a href="/admin/resources" class="dashboard-card">
+                <h3>Manage Resources</h3>
+                <p>Upload and manage downloadable documents.</p>
+            </a>
+        <% } %>
+
+        <a href="/admin/gallery" class="dashboard-card">
+            <h3>Manage Gallery</h3>
+            <p>Upload new photos and videos.</p>
+        </a>
+    </div>
+</div>
+
+<%- include('../partials/footer') %>

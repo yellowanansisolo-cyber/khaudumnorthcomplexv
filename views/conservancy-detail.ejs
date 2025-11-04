@@ -1,0 +1,52 @@
+<%- include('partials/header') %>
+
+<section class="page-hero" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('<%= conservancy.heroImage || '/images/default-hero.jpg' %>');">
+    <h1><%= conservancy.name %></h1>
+</section>
+
+<section class="container content-section">
+    <div class="row" style="display: flex; flex-wrap: wrap;">
+        <div class="col-lg-8" style="flex: 0 0 66.66%; max-width: 66.66%;">
+            <h2>About the Conservancy</h2>
+            <p class="lead"><%- conservancy.mainContent %></p>
+        </div>
+        <div class="col-lg-4" style="flex: 0 0 33.33%; max-width: 33.33%; padding-left: 2rem;">
+            <div class="sidebar-info">
+                <strong>Our Vision:</strong>
+                <p><%= conservancy.vision %></p>
+            </div>
+            <div class="sidebar-info">
+                <strong>Our Mission:</strong>
+                <p><%= conservancy.mission %></p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="container content-section">
+    <h2 class="section-title">Key Achievements</h2>
+    <ul class="list-group list-group-flush" style="list-style: none; padding-left: 0;">
+        <% if (conservancy.achievements && conservancy.achievements.length > 0) { %>
+            <% conservancy.achievements.forEach(ach => { %>
+                <li class="list-group-item" style="background-color: transparent; border-color: var(--light-gray-border); padding: 0.75rem 0;"><i class="fas fa-check-circle" style="color: var(--primary-green); margin-right: 0.5rem;"></i><%= ach %></li>
+            <% }) %>
+        <% } else { %>
+            <p class="text-center">Information on achievements is being updated.</p>
+        <% } %>
+    </ul>
+</section>
+
+<% if (conservancy.gallery && conservancy.gallery.length > 0) { %>
+<section class="container content-section">
+    <h2 class="section-title">Gallery</h2>
+    <div class="gallery-grid">
+        <% conservancy.gallery.forEach(img => { %>
+            <a href="<%= img.url %>" class="gallery-item">
+                <img src="<%= img.url %>" alt="Gallery image for <%= conservancy.name %>">
+            </a>
+        <% }) %>
+    </div>
+</section>
+<% } %>
+
+<%- include('partials/footer') %>
